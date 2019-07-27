@@ -24,7 +24,7 @@ BudgetBuddy is capable of having multiple users and each user will only be able 
 ![Image of homepage](https://raw.githubusercontent.com/jalvarez24/463-Software-Testing-Project/master/budgetproject/BudgetBuddy%20Images/2.png)
 
 ## Screenshot of a logged in user:
-![Image of homepage](https://raw.githubusercontent.com/jalvarez24/463-Software-Testing-Project/master/budgetproject/BudgetBuddy%20Images/3.png)
+![Image of homepage](https://raw.githubusercontent.com/jalvarez24/463-Software-Testing-Project/master/budgetproject/BudgetBuddy%20Images/4.png)
 
 ## Screenshot of a user's project:
-![Image of homepage](https://raw.githubusercontent.com/jalvarez24/463-Software-Testing-Project/master/budgetproject/BudgetBuddy%20Images/4.png)
+![Image of homepage](https://raw.githubusercontent.com/jalvarez24/463-Software-Testing-Project/master/budgetproject/BudgetBuddy%20Images/3.png)
