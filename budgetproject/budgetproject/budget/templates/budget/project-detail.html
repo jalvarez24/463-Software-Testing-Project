@@ -1,0 +1,193 @@
+{% extends 'budget/base.html' %}
+{% block title %} | Viewing Project {% endblock %}
+{%block page%}{{project.name}}{% endblock %}
+{% block content %}
+{% load humanize %}
+
+<!-- SECTION for TOTAL BUDGET/TOTAL TRANS/REMAINING -->
+<div class="container txt-body padding-vert-5-v">
+
+    <div class="row">
+        <div class="col margin-all-1-v">
+            <!-- Start of Total Budget -->
+            <div class="card margin-all-1-v">
+                <div class="card-body">
+                    <center>
+                        <h4 class="display-4">${{ project.budget|intcomma }}</h4>
+                        <p>Total Budget</p>
+                    </center>
+                </div>
+            </div>
+        </div> <!-- End of Total Budget -->
+
+        <div class="col margin-all-1-v">
+            <!-- Start of Total Transactions -->
+            <div class="card margin-all-1-v">
+                <div class="card-body">
+                    <center>
+                        <h4 class="display-4">{{ project.total_transactions }}</h4>
+                        <p>Total Transactions</p>
+                    </center>
+                </div>
+            </div>
+        </div> <!-- End of Total Transactions -->
+
+        <div class="col margin-all-1-v">
+            <!-- Start of Remaining Budget -->
+            <div class="card margin-all-1-v">
+                <div class="card-body">
+                    <center>
+                        {% if project.budget_percentage < 45 %} <h4 class="display-4 txt-success">${{project.budget_left}}</h4>
+                            {% elif project.budget_percentage < 75 %} <h4 class="display-4 txt-warning">${{project.budget_left|intcomma}}</h4>
+                                {% elif project.budget_percentage < 100 %} <h4 class="display-4 txt-danger">${{project.budget_left|intcomma }}</h4>
+                                    {% else %}
+                                    <h4 class="display-4 txt-overbudget">${{ project.budget_left|intcomma }}</h4>
+                                    {% endif%}
+                                    <p>Budget Remaining</p>
+                    </center>
+                </div>
+            </div>
+        </div> <!-- End of Remaining Budget -->
+    </div>
+</div>
+
+
+<!-- SECTION for EXPENSES -->
+<div class="txt-body bg-white padding-vert-5-v">
+
+
+
+    <div class="container" style="padding: 15px; margin-bottom: 5px;">
+        {% if project.budget_percentage > 100 %}
+        <div class="alert alert-warning" role="alert">
+            <center>
+                <b>You're over budget!</b> Please review your budget and make adjustments where needed.</center>
+        </div>
+        {% endif %}
+
+        <div class="card" style="margin-top: 5px; margin-bottom: 5px;">
+            <div class="card-body" style="padding-top: 5px; padding-bottom: 5px; margin-right: 5px;">
+                <div class="row">
+                    <div class="col-sm-3 align-self-center txt-d-blue"><b>Expense Name</b></div>
+                    <div class="col-sm-4 align-self-center txt-l-blue">
+                        <center><b>Amount Spent</b></center>
+                    </div>
+                    <div class="col-sm-3 align-self-center txt-l-blue" style="justify-content: right;"><b>Category</b></div>
+                    <div class="col-sm-2 align-self-center justify-content-end">
+                        <center>
+                            <button type="button" class="btn btn-b" href="#expenseModal" data-toggle="modal"><i class="fas fa-plus-square"></i>&ThickSpace;
+                                Add Expense</button></center>
+                    </div>
+                </div>
+            </div>
+
+            <ul>
+                {% for expense in expense_list %}
+                <!-- displaying expenses using a for loop -->
+                <li>
+                    <div class="card">
+                        <div class="card-body" style="margin-top: 3px; padding-top: 10px; padding-bottom: 5px; margin-right: 5px;">
+                            <div class="row">
+                                <div class="col-sm-3 align-self-center txt-body"><b>{{ expense.title }}</b></div>
+                                <div class="col-sm-4 align-self-center">
+                                    <center>${{ expense.amount|intcomma }}</center>
+                                </div>
+                                <div class="col-sm-4 align-self-center ">
+                                    <center>{{ expense.category.name }}<center>
+                                </div>
+                                <div class="col-sm-1 align-self-center justify-content-end">
+                                    <a onclick="deleteExpense(this)" data-id="{{ expense.id }}">
+                                        <i class="material-icons btn-close" style="cursor: auto;">delete_forever</i></a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                {% empty %}
+                <div class="txt-body bg-white padding-vert-15-v">
+                    <center>
+                        <h1 class="display-4 display-alert"> No transactions available</h1>
+
+                        <p>
+                            <small>Need help getting started? <a href="#">Learn more!</a></small>
+                        </p>
+                    </center>
+                </div>
+
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+
+
+    <!-- MODAL FOR ADD EXPENSE -->
+    <div class="modal fade" id="expenseModal" tabindex="-1" role="dialog" aria-labelledby="expenseModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Adding to {{project.name}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {% if project.budget_percentage > 100 %}
+                    <div class="alert alert-danger" role="alert">
+                        <center>
+                            <b style="color: crimson;">You are currently over your budget!</b><br><small>Why am I
+                                seeing this? <a href="">Learn
+                                    more</a></small></center>
+                    </div>
+                    {% endif %}
+                    <form method="POST">
+                        {% csrf_token %}
+                        <label for="title">Expense</label>
+                        <input name="title" class="form-control" id="title" placeholder="Enter Expense Name">
+
+                        <label for="amount">Amount</label>
+                        <input name="amount" class="form-control" id="amount" placeholder="Enter Amount">
+
+                        <label for="category">Category</label>
+                        <select name="category" class="form-control">
+                            {% for category in category_list %}
+                            <option>{{ category.name }}</option>
+                            {% endfor %}
+                        </select>
+                        <center>                        <button type="submit" class="btn btn-p btn-lg-30 margin-vert-1-v">Add Expense</button>
+                        </center>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            var elem = document.querySelector('.modal')
+            var instance = M.Modal.init(elem)
+
+            var elem = document.querySelector('select')
+            var instance = M.FormSelect.init(elem)
+
+            function deleteExpense(e) {
+
+                let id = e.dataset.id
+                e.closest('li').remove()
+
+                fetch('', {
+                    method: 'DELETE',
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    },
+                    body: JSON.stringify({
+                        'id': id
+                    }),
+                    credentials: 'same-origin',
+                })
+                location.reload()
+            }
+
+        </script>
+
+        {% endblock %}

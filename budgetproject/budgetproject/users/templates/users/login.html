@@ -1,0 +1,40 @@
+{% extends 'budget/base.html' %}
+{% block content %}
+<div class="heading-display">
+        <h3 class="display-3">
+            <center>Login</h3></center>
+                <br>
+                <center><em>Please fill out the forms below to sign into your account.</em></center>
+            
+        
+</div>
+    <div class="text-dark bg-white padding-vert-5-v">
+        <div class="margin-horiz-20-v">
+                <form method="POST" class="margin-horiz-20-v">
+                        {% csrf_token %}
+                                <div class="form-group">
+                                    <label for="id_username">Username</label>
+                                    <input class="form-control" type="text" name="username" autofocus="" required="" id="id_username" placeholder="Enter username">
+                                </div>
+            
+                                <div class="form-group">
+                                    <label for="id_password">Password</label>
+                                    <input class="form-control" type="password" name="password" autofocus="" required="" id="id_password" placeholder="Enter Password">
+                                </div>
+                        <div class="form-group"><center>
+                            <button type="submit" class="btn btn-lg-20 btn-b">Login</button> </center>
+                        </div>
+                        <small class="text-muted"><center>
+                                Need an Account? <a href="{% url 'register' %}" class="ml-2">Sign Up Now</a>
+                            </center>
+                            </small>
+                       
+                    </form>
+
+        </div>
+
+    </div>
+
+</center>
+
+{% endblock %}
