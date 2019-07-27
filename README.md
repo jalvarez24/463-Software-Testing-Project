@@ -1,4 +1,5 @@
-# 463_SoftwareTesting V2
+# CPSCP463: Software Testing Term Project (Spring 2019)
+## Objective: Create an application and test it through-out the development process with professional software testing techniques. 
 
 ## Team Members
 
