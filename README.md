@@ -19,7 +19,7 @@ Jayro Alvarez jayroalvarez@csu.fullerton.edu
 Django, SQLite3, Python, HTML, CSS, & JavaScript *(Live demo version is hosted on Heroku and uses Postgres Database)*
 
 ## What our web app is?
-BudgetBuddy is a budgeting tool for people looking to save money by taking a look at their spending based on projects. Project can include expenses such as monthly subscriptions, monthly fast-food spending, montly gas, etc. Within each project users can add indivdual expenses and on each project page, a user is able to see the initial total budget, total transactions, and the budget left.
+BudgetBuddy is a budgeting tool for people looking to save money by taking a look at their spending based on projects. Project can include expenses such as monthly subscriptions, monthly fast-food spending, montly gas, etc. Within each project users can add individual expenses and on each project page, a user is able to see the initial total budget, total transactions, and the budget left.
 
 BudgetBuddy is capable of having multiple users and each user will only be able to access their own budgeting projects.
 
