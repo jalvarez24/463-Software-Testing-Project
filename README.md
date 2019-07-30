@@ -1,6 +1,6 @@
 # CPSCP463: Software Testing Term Project (Spring 2019)
 
-# Visit Live Demo:  
+## Visit Live Demo: [budgetBuddy](https://budgetbuddy-jayro.herokuapp.com/)
 
 ## Objective: Create an application and test it through-out the development process with professional software testing techniques. 
 Main Forms of Testing: White box and black box testing.
